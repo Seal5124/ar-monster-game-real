@@ -25,6 +25,14 @@
 </head>
 
 <body>
+<video id="camera" autoplay playsinline></video>
+
+  <script>
+    const video = document.getElementById("camera");
+
+    navigator.mediaDevices.getUserMedia({video: true})
+      .then(stream => {video.srcObject = stream;})
+      .catch(error => {console.log("Error accessing camera:", error);});
   <div id="scoreBoard">Score: 0</div>
 
   <a-scene embedded arjs>
@@ -61,4 +69,5 @@
   </script>
 
 </body>
+
 </html>
