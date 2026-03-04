@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AR Monster Game</title>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+
+  <!-- AR.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ar.js@3.4.5/aframe/build/aframe-ar.js"></script>
+
+  <style>
+    body { margin: 0; overflow: hidden; }
+    #scoreBoard {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 24px;
+      font-family: Arial;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="scoreBoard">Score: 0</div>
+
+  <a-scene embedded arjs>
+
+    <!-- Marker -->
+    <a-marker preset="hiro">
+
+      <!-- Monster -->
+      <a-sphere id="monster"
+                position="0 0.5 0"
+                radius="0.3"
+                color="red"
+                class="clickable">
+      </a-sphere>
+
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+    let score = 0;
+    const monster = document.querySelector('#monster');
+
+    monster.addEventListener('click', function () {
+      score++;
+      document.getElementById('scoreBoard').innerText = "Score: " + score;
+
+      // Move monster randomly on marker
+      const x = (Math.random() - 0.5) * 1;
+      const z = (Math.random() - 0.5) * 1;
+      monster.setAttribute('position', { x: x, y: 0.5, z: z });
+    });
+  </script>
+
+</body>
+</html>
